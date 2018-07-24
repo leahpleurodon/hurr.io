@@ -1,4 +1,4 @@
-     
+require 'pry'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
@@ -11,16 +11,13 @@ enable :sessions
 helpers do
 
   def logged_in_client
-    Client.find_by(id: session[:client_id])
-  end
-  def client_logged_in?
-    !!logged_in_client
+    Client.where(id: session[:client_id])[0]
   end
   def logged_in_employee
-    Employee.find_by(id: session[:employee_id])
+    Employee.where(id: session[:employee_id])[0]
   end
-  def employee_logged_in?
-    !!logged_in_employee
+  def admin_logged_in?
+    employee_logged_in? && logged_in_employee.admin
   end
 
 end
@@ -40,3 +37,7 @@ require_relative 'routes/employee'
 require_relative 'routes/client_session'
 # ------------employee sessions -----------
 require_relative 'routes/employee_session'
+# ------------client me -----------
+require_relative 'routes/client_me'
+# ------------employee me -----------
+require_relative 'routes/employee_me'

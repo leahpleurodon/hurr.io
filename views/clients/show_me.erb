@@ -1,0 +1,31 @@
+<h2>My Account</h2>
+<h3>First Name</h3>
+<%= @client.first_name %>
+<h3>Last Name</h3>
+<%= @client.last_name %>
+<h3>Preferred Name</h3>
+<%= @client.preferred_name %>
+<h3>Title</h3>
+<%= @client.title %>
+<h3>Email</h3>
+<%= @client.email %>
+<h3>Date of Birth</h3>
+<%= @client.dob %>
+<h3>Phone</h3>
+<%= @client.phone %>
+<h3>Last Updated</h3>
+<%= @client.last_update %>
+<h3>Date Created</h3>
+<%= @client.date_created %>
+<form action="/client/me/deactivate" method="post">
+    <input type="hidden" name="_method" value="put">
+    <button>Deactivate My Account</button>
+</form>
+
+<% @client_notes.each do |note| %>
+    <%= note.note %> - 
+    Created on:
+    <%= note.date_created %>
+    By:
+    <%= note.employee.full_preferred_name %>
+<% end %>
