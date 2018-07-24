@@ -1,3 +1,4 @@
+DROP TABLE client_notes;
 DROP TABLE clients;
 
 CREATE TABLE clients (
@@ -14,4 +15,15 @@ CREATE TABLE clients (
     active BOOLEAN NOT NULL,
     last_update TIMESTAMP,
     date_created TIMESTAMP
+);
+
+CREATE TABLE client_notes (
+    id SERIAL4 PRIMARY KEY,
+    client_id INTEGER NOT NULL,
+    note TEXT NOT NULL,
+    author_id INTEGER,
+    last_update TIMESTAMP,
+    date_created TIMESTAMP,
+    active BOOLEAN NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
 );

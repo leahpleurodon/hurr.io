@@ -1,4 +1,5 @@
 <form action="/client" method="post">
+    <input type="hidden" name="_method" value="put">
     <label for=""></label> 
     <select name="title">
         <% @titles.each do |title| %>
@@ -6,16 +7,16 @@
         <% end %>
     </select> 
     <label for="first-name">First Name</label>
-        <input type="text" name="first-name">
+        <input type="text" name="first-name" value="<%= @client.first_name %>">
     <label for="last-nane">Last Name</label>
-        <input type="text" name="last-name">
+        <input type="text" name="last-name" value="<%= @client.last_name %>">
     <label for="preferred-name">Preferred Name</label>
-        <input type="text" name="preferred-name">
+        <input type="text" name="preferred-name" value="<%= @client.preferred_name %>">
     <label for="email">Email Address</label>
-        <input type="email" name="email">
+        <input type="email" name="email" value="<%= @client.email %>">
     <label for="phone">Phone Number</label>
-        <input type="tel" name="phone">
+        <input type="tel" name="phone" value="<%= @client.phone %>">
     <label for="dob">Date of Birth</label>
-        <input type="date" name="dob">
-    <button type="submit">Create Client</button>
+        <input type="date" name="dob" value="<%= @client.dob %>">
+    <button type="submit">Save</button>
 </form>

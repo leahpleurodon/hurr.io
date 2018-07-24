@@ -1,0 +1,42 @@
+<h2><%= @client.full_preferred_name %></h2>
+<h3>First Name</h3>
+<%= @client.first_name %>
+<h3>Last Name</h3>
+<%= @client.last_name %>
+<h3>Preferred Name</h3>
+<%= @client.preferred_name %>
+<h3>Title</h3>
+<%= @client.title %>
+<h3>Email</h3>
+<%= @client.email %>
+<h3>Date of Birth</h3>
+<%= @client.dob %>
+<h3>Phone</h3>
+<%= @client.phone %>
+<h3>ACTIVE</h3>
+<%= @client.active %>
+<h3>Last Updated</h3>
+<%= @client.last_update %>
+<h3>Date Created</h3>
+<%= @client.date_created %>
+<form action="/clients/<%= @client.id %>/deactivate" method="post">
+    <input type="hidden" name="_method" value="put">
+    <button>Deactivate Client</button>
+</form>
+
+<form action="/client_note" method="post">
+    <input type="hidden" name="client-id" value="<%=@client.id%>">
+    <label for="Note">Enter Note</label>
+        <textarea name="note"  cols="30" rows="10">
+        </textarea>
+    <button type="submit">Save</button>
+</form>
+
+<% @client.client_notes.each do |note| %>
+    <%= note.note %> - <%= note.date_created %>
+    <a href="/client_notes/<%= note.id %>/edit">edit</a>
+    <form action="/client_notes/<%= note.id %>/deactivate" method="post">
+        <input type="hidden" name="_method" value="put">
+        <button>Deactivate Note</button>
+    </form>
+<% end %>
