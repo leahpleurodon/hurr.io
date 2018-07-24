@@ -1,0 +1,23 @@
+<form action="/employee" method="post">
+        <label for=""></label> 
+    <select name="title">
+        <% @titles.each do |title| %>
+            <option value="<%=title%>"><%=title%></option>
+        <% end %>
+    </select> 
+    <label for="first-name">First Name</label>
+        <input type="text" name="first-name">
+    <label for="last-nane">Last Name</label>
+        <input type="text" name="last-name">
+    <label for="preferred-name">Preferred Name</label>
+        <input type="text" name="preferred-name">
+    <label for="email">Email Address</label>
+        <input type="email" name="email">
+    <label for="phone">Phone Number</label>
+        <input type="tel" name="phone">
+    <label for="dob">Date of Birth</label>
+        <input type="date" name="dob">
+    <label for="admin">Is Admin</label>
+        <input type="checkbox" name="admin">
+    <button type="submit">Create Employee</button>
+</form>

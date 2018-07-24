@@ -1,0 +1,25 @@
+<table BORDER="5">
+   <tr>
+      <th COLSPAN="7">
+         <h2>Employees</h2>
+      </th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th COLSPAN=3></th>
+    </tr>
+    <% @employees.each do |employee| %>
+        <tr>
+            <td>PICTURE</td>
+            <td><%= employee.first_name %></td>
+            <td><%= employee.last_name %></td>
+            <td><%= employee.phone %></td>
+            <td><%= employee.dob %></td>
+            <td><a href="/employees/<%= employee.id %>/edit">Edit</a></td>
+            <td><a href="/employees/<%= employee.id %>">Show</a></td>
+        </tr>
+    <% end %>
+</table>

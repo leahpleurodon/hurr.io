@@ -1,0 +1,32 @@
+<form action="/employees/<%= @employee.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <label for=""></label> 
+    <select name="title">
+        <% @titles.each do |title| %>
+            <option value="<%=title%>"><%=title%></option>
+        <% end %>
+    </select> 
+    <label for="first-name">First Name</label>
+        <input type="text" name="first-name" value="<%= @employee.first_name %>">
+    <label for="last-nane">Last Name</label>
+        <input type="text" name="last-name" value="<%= @employee.last_name %>">
+    <label for="preferred-name">Preferred Name</label>
+        <input type="text" name="preferred-name" value="<%= @employee.preferred_name %>">
+    <label for="email">Email Address</label>
+        <input type="email" name="email" value="<%= @employee.email %>">
+    <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" value="<%= @employee.phone %>">
+    <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" value="<%= @employee.dob %>">
+    <label for="admin">Is Admin</label>
+        <% if @employee.admin %>
+            <input type="checkbox" name="admin" checked/>
+        <% else %>
+            <input type="checkbox" name="admin"/>
+        <% end %>
+    <label for="admin">Is Terminated</label>
+        <input type="checkbox" name="terminated" value="<%= @employee.terminated %>">
+    <label for="admin">Date Terminated</label>
+        <input type="date" name="date_terminated" value="<%= @employee.terminated %>">
+    <button type="submit">Save</button>
+</form>

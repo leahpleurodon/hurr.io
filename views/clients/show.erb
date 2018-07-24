@@ -32,9 +32,14 @@
     <button type="submit">Save</button>
 </form>
 
-<% @client.client_notes.each do |note| %>
-    <%= note.note %> - <%= note.date_created %>
+<% @client_notes.each do |note| %>
+    <%= note.note %> - 
+    Created on:
+    <%= note.date_created %>
+    By:
+    <%= note.employee.full_preferred_name %>
     <a href="/client_notes/<%= note.id %>/edit">edit</a>
+
     <form action="/client_notes/<%= note.id %>/deactivate" method="post">
         <input type="hidden" name="_method" value="put">
         <button>Deactivate Note</button>

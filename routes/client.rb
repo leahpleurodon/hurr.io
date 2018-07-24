@@ -1,17 +1,17 @@
-require 'pry'
 get '/clients' do
     @clients = Client.where(active: true)
-    erb :'clients/index'
+    erb :'clients/index', layout: :'layouts/admin'
   end
   
   get '/clients/:id' do
     @client = Client.find(params[:id])
-    erb :"clients/show"
+    @client_notes = ClientNote.where(client_id: @client.id,active: true)
+    erb :"clients/show", layout: :'layouts/admin'
   end
   
   get '/client/new' do
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
-    erb :"clients/new"
+    erb :"clients/new", layout: :'layouts/admin'
   end
   
   post '/client' do
@@ -34,7 +34,7 @@ get '/clients' do
   get '/clients/:id/edit' do
     @client = Client.find(params[:id])
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
-    erb :"clients/edit"
+    erb "/clients/edit"
   end
   
   put '/clients/:id/deactivate' do

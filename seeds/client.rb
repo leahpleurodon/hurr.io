@@ -27,7 +27,6 @@ def seed_clients
         {
             first_name: "John",
             last_name: "Lennon",
-            preferred_name: "",
             title: "Sir",
             email: "john@beatles.com",
             dob: "1940-10-09",
@@ -35,9 +34,8 @@ def seed_clients
             active: false
         },
         {
-            first_name: "Geroge",
+            first_name: "George",
             last_name: "Harrison",
-            preferred_name: "",
             title: "Sir",
             email: "george@beatles.com",
             dob: "1943-02-25",
@@ -47,7 +45,6 @@ def seed_clients
         {
             first_name: "Paul",
             last_name: "McCartney",
-            preferred_name: "",
             title: "Sir",
             email: "paul@beatles.com",
             dob: "1942-06-18",
@@ -59,8 +56,9 @@ def seed_clients
     data.each do |client|
         c = Client.new(
             first_name: client[:first_name],
+            password: client[:first_name],
             last_name: client[:last_name],
-            preferred_name: client[:preferred_name],
+            preferred_name: client[:preferred_name] || client[:first_name],
             title: client[:title],
             email: client[:email],
             dob: client[:dob],

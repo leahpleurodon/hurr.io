@@ -1,6 +1,6 @@
-class Client < ActiveRecord::Base
+class Employee < ActiveRecord::Base
     has_secure_password
-    has_many :client_notes
+    has_many :client_notes, foreign_key: 'author_id'
 
     def full_legal_name
         "#{first_name} #{last_name}"

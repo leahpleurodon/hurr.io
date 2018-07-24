@@ -1,4 +1,3 @@
-
   get '/client_note/:id' do
     @note = ClientNote.find(params[:id])
   end
@@ -21,7 +20,7 @@
   
   get '/client_notes/:id/edit' do
     @note = ClientNote.find(params[:id])
-    erb :"client_notes/edit"
+    erb :"client_notes/edit", layout: :'layouts/admin'
   end
   
   put '/client_notes/:id/deactivate' do
