@@ -1,0 +1,21 @@
+Book an appointment for <%= @client.full_preferred_name %>
+<form action="/appointments" method="post">
+    <input type="hidden" name="client-id" value="<%= @client.id %>">
+    <label for="app-date">Date</label>
+        <input type="date" name="app-date">
+    <label for="start-time">Start Time</label>
+        <input type="time" name="start-time">
+    <label for="end-time">End Time</label>
+        <input type="time" name="end-time">
+    <label for="app-service">Service</label>
+        <input type="text" name="app-service">
+    <label for="employee-id">Employee</label>
+        <select name="employee-id">
+            <% @employees.each do |employee| %>
+                <option value="<%= employee.id %>">
+                    <%= employee.full_preferred_name %>
+                </option>
+            <% end %>
+        </select> 
+    <button>Book Appointment</button>
+</form>

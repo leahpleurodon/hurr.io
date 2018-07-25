@@ -1,0 +1,28 @@
+    <h3><%= @appointment.client.full_preferred_name %></h3>
+        
+<form action="/appointments/<%= @appointment.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <label for="app-date">Date</label>
+        <input type="date" name="app-date" value="<%= @appointment.app_date %>">
+    <label for="start-time">Start Time</label>
+        <input type="time" name="start-time" value="<%= get_time_string(@appointment.start_time) %>">
+    <label for="end-time">End Time</label>
+        <input type="time" name="end-time" value="<%= get_time_string(@appointment.end_time) %>">
+    <label for="app-service">Service</label>
+        <input type="text" name="app-service" value="<%= @appointment.app_service %>">
+    <label for="employee-id">Employee</label>
+        <select name="employee-id">
+            <% @employees.each do |employee| %>
+                <% if @appointment.employee_id == employee.id %>
+                    <option value="<%= employee.id %>" selected="selected">
+                        <%= employee.full_preferred_name %>
+                    </option>
+                <% else %>
+                    <option value="<%= employee.id %>">
+                        <%= employee.full_preferred_name %>
+                    </option>
+                <% end %>
+            <% end %>
+        </select> 
+    <button>Change Appointment</button>
+</form>

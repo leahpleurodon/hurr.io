@@ -1,0 +1,38 @@
+<h2>Appointment Details</h2>            
+<h3>Date</h3>
+    <%= get_date_string(@appointment.app_date) %>
+<h3>Time</h3>
+    <%= get_time_string(@appointment.start_time) %> - <%= get_time_string(@appointment.end_time) %>
+<h3>Client</h3>
+    <%= @appointment.client.full_preferred_name %>
+<h3>Employee</h3>
+    <%= @appointment.employee.preferred_name %>
+<h3>Service</h3>
+    <%= @appointment.app_service %>
+<h3>Edit Appointment</h3>
+    <a href="/appointments/<%= @appointment.id %>/edit">edit</a>
+<h3>Cancel Appointment...</h3>            
+<form action="/appointments/<%= @appointment.id %>/delete" method="post">
+    <input type="hidden" name="_method" value="put">
+    <button>cancel</button>
+</form>
+<form action="/appointment_note" method="post">
+    <input type="hidden" name="appointment-id" value="<%=@appointment.id%>">
+    <label for="Note">Enter Note</label>
+        <textarea name="note"  cols="30" rows="10">
+        </textarea>
+    <button type="submit">Save</button>
+</form>
+
+<% @appointment_notes.each do |note| %>
+    <%= note.note %> - 
+    Created on:
+    <%= note.date_created %>
+    By:
+    <%= note.employee.full_preferred_name %>
+    <a href="/appointment_notes/<%= note.id %>/edit">edit</a>
+    <form action="/appointment_notes/<%= note.id %>/deactivate" method="post">
+        <input type="hidden" name="_method" value="put">
+        <button>Deactivate Note</button>
+    </form>
+<% end %>

@@ -1,6 +1,6 @@
-<form action="/client_notes/<%= @note.id %>" method="post">
+<form action="/appointment_notes/<%= @note.id %>" method="post">
     <input type="hidden" name="_method" value="put">
-    <label for="Note">Note</label>
+    <label for="Note">First Name</label>
         <textarea name="note"  cols="30" rows="10"><%= @note.note %></textarea>
     <button type="submit">Save</button>
 </form>

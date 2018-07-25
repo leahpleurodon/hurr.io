@@ -19,7 +19,7 @@
             <td><%= client.dob %></td>
             <td><a href="/clients/<%= client.id %>/edit">Edit</a></td>
             <td><a href="/clients/<%= client.id %>">Show</a></td>
-            <td>make a booking</td>
+            <td><a href="/clients/<%= client.id %>/appointments/new">make a booking</a></td>
         </tr>
     <% end %>
 </table>

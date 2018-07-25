@@ -82,3 +82,15 @@ CREATE TABLE appointments (
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
     FOREIGN KEY (author_id) REFERENCES employees(id) ON DELETE CASCADE
 );
+
+CREATE TABLE appointment_notes (
+    id SERIAL4 PRIMARY KEY,
+    appointment_id INTEGER NOT NULL,
+    note TEXT NOT NULL,
+    author_id INTEGER,
+    last_update TIMESTAMP,
+    date_created TIMESTAMP,
+    active BOOLEAN NOT NULL,
+    FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES employees(id) ON DELETE CASCADE
+);

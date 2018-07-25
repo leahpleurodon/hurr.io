@@ -3,7 +3,11 @@
     <label for="title">Title</label> 
     <select name="title">
         <% @titles.each do |title| %>
-            <option value="<%=title%>"><%=title%></option>
+            <% if @client.title == title %>
+                <option selected="selected" value="<%=title%>"><%=title%></option>
+            <% else %>
+                <option value="<%=title%>"><%=title%></option>
+            <% end %>
         <% end %>
     </select> 
     <label for="first-name">First Name</label>

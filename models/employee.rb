@@ -3,6 +3,7 @@ class Employee < ActiveRecord::Base
     has_many :client_notes, foreign_key: 'author_id'
     has_many :emp_work_hours, foreign_key: 'author_id'
     has_many :emp_work_hours, foreign_key: 'employee_id'
+    has_many :appointment_notes, foreign_key: 'author_id'
 
     def full_legal_name
         "#{first_name} #{last_name}"

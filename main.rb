@@ -6,6 +6,8 @@ require_relative 'models/client'
 require_relative 'models/client_note'
 require_relative 'models/employee'
 require_relative 'models/emp_work_hour'
+require_relative 'models/appointment_note'
+require_relative 'models/appointment'
 require_relative 'db_config' 
 
 enable :sessions
@@ -36,4 +38,8 @@ require_relative 'routes/client_me'
 # ------------employee me -----------
 require_relative 'routes/employee_me'
 # ------------work hours -----------
-require_relative 'routes/emp_work_hours'
+require_relative 'routes/emp_work_hour'
+# ------------appointments -----------
+require_relative 'routes/appointment'
+# ------------appointment notes -----------
+require_relative 'routes/appointment_note'

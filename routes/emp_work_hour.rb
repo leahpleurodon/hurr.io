@@ -12,24 +12,7 @@ end
 
 post '/employees/:employee_id/workhours' do
     if admin_logged_in?
-        EmpWorkHour.where(employee_id: params[:employee_id], :work_date => Date.parse(params["start"])..Date.parse(params["end"])).destroy_all
-
-        (Date.parse(params["start"])..Date.parse(params["end"])).each do |date|
-            weekday = get_week_day(date)
-            if !!params[weekday]
-                availability = EmpWorkHour.new(
-                    employee_id: params[:employee_id],
-                    work_date: date,
-                    author_id: session[:employee_id],
-                    date_created: Time.now,
-                    last_updated: Time.now,
-                    active: true,
-                    start_time: params["#{weekday}-start-time"],
-                    end_time: params["#{weekday}-end-time"]
-                )
-                availability.save
-            end
-        end   
+        EmpWorkHour.gen_work_hours(params, session[:employee_id])
         redirect "/employees/#{params[:employee_id]}"
     else
         redirect '/'
@@ -39,7 +22,7 @@ end
 get '/work_hours' do
     if admin_logged_in?
         @work_hours = EmpWorkHour.where(active: true).order(:work_date)
-        erb :"work_hours/work_hours", layout: :'layouts/admin'
+        erb :"work_hours/index", layout: :'layouts/admin'
     else
         redirect '/'
     end
