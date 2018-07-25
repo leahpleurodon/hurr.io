@@ -1,4 +1,9 @@
 <h2><%= @employee.full_preferred_name %></h2>
+<img src="<%= @employee.photo %>" alt="Profile Picture">
+<form action='/employees/<%= @employee.id %>/image' enctype="multipart/form-data" method='POST'>
+    <input name="file" type="file" />
+    <input type="submit" value="Upload" />
+</form>
 <h3>First Name</h3>
 <%= @employee.first_name %>
 <h3>Last Name</h3>

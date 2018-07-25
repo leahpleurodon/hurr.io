@@ -1,4 +1,20 @@
 require 'pry'
+
+post '/employees/:id/image' do
+  if admin_logged_in?
+    tempfile = params[:file][:tempfile] 
+    fileext = File.extname(params[:file][:filename])
+    img_path = "/uploads/photos/employee/employee_#{params[:id]}#{fileext}"
+    FileUtils.cp(tempfile.path, "#{FileUtils.pwd}/public/#{img_path}")
+    emp = Employee.where(id: params[:id])[0]
+    emp.photo = img_path
+    emp.save
+    redirect "/employees/#{params[:id]}"
+  else
+    redirect '/'
+  end
+end
+
 get '/employees' do
   if admin_logged_in?
     @employees = Employee.where(active: true)
@@ -37,13 +53,14 @@ post '/employee' do
       email: params["email"],
       dob: params["dob"],
       phone: params["phone"],
+      photo: params["photo"],
       active: true,
       admin: params["admin"],
       date_started: Time.now,
       terminated: false,
       date_terminated: params["date-terminated"] || nil,
       last_update: Time.now,
-      date_created: Time.now  
+      date_created: Time.now 
     )
     employee.save
     redirect "/employees"
@@ -86,6 +103,7 @@ put '/employees/:id' do
     employee.phone = params["phone"]
     employee.admin = params["admin"] ? true : false
     employee.terminated = params["terminated"] || false
+    employee.photo = params["photo"],
     employee.date_terminated = params["date-terminated"] || nil
     employee.last_update = Time.now
     employee.save
@@ -94,4 +112,6 @@ put '/employees/:id' do
     redirect '/'
   end
 end
+
+
 

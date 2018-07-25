@@ -1,3 +1,18 @@
+post '/client/me/image' do
+    if logged_in_client
+        tempfile = params[:file][:tempfile] 
+        fileext = File.extname(params[:file][:filename])
+        img_path = "/uploads/photos/client/client_#{session[:client_id]}#{fileext}"
+        FileUtils.cp(tempfile.path, "#{FileUtils.pwd}/public/#{img_path}")
+        emp = Client.where(id: session[:client_id])[0]
+        emp.photo = img_path
+        emp.save
+        redirect 'client/me'
+    else
+        redirect '/'
+    end
+end
+
 get '/client/me' do
     if logged_in_client
         @client = Client.find(session[:client_id])

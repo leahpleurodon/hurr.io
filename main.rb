@@ -6,6 +6,7 @@ require_relative 'models/client'
 require_relative 'models/client_note'
 require_relative 'models/employee'
 require_relative 'db_config' 
+
 enable :sessions
 
 helpers do
@@ -17,7 +18,7 @@ helpers do
     Employee.where(id: session[:employee_id])[0]
   end
   def admin_logged_in?
-    employee_logged_in? && logged_in_employee.admin
+    logged_in_employee.admin
   end
 
 end

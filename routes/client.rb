@@ -1,4 +1,19 @@
-require 'pry'
+post '/clients/:id/image' do
+  if logged_in_employee
+    tempfile = params[:file][:tempfile] 
+    fileext = File.extname(params[:file][:filename])
+    img_path = "/uploads/photos/client/client_#{params[:id]}#{fileext}"
+    FileUtils.cp(tempfile.path, "#{FileUtils.pwd}/public/#{img_path}")
+    emp = Client.where(id: params[:id])[0]
+    emp.photo = img_path
+    emp.save
+    redirect "/clients/#{params[:id]}"
+  else
+    redirect '/'
+  end
+end
+
+
 get '/clients' do
   if logged_in_employee
     @clients = Client.where(active: true)
@@ -70,6 +85,7 @@ put '/clients/:id/deactivate' do
 end
 
 put '/clients/:id' do
+
   if session[:client_id].to_s == params[:id] || logged_in_employee
     client = Client.find(params[:id])
     client.first_name = params["first-name"]
@@ -79,11 +95,12 @@ put '/clients/:id' do
     client.email = params["email"]
     client.dob = params["dob"]
     client.phone = params["phone"]
+    client.photo = params["photo"]
     client.last_update = Time.now
     client.save
   end
   if logged_in_employee
-    redirect "/client/#{params[:id]}"
+    redirect "/clients/#{params[:id]}"
   elsif session[:client_id].to_s == params[:id]
     redirect '/client/me'
   else
