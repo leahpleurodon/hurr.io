@@ -1,0 +1,10 @@
+<form action="/work_hours/<%= @schedule.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+        <label for="work-date">Date</label>
+            <input type="date" name="work-date" value="<%= @schedule.work_date %>">
+        <label for="start-time">Start Time</label>
+            <input type="time" name="start-time" value="<%= get_time_string(@schedule.start_time) %>">
+        <label for="end-time">End Time</label>
+            <input type="time" name="end-time" value="<%= get_time_string(@schedule.end_time) %>">
+    <button type="submit">Ammend Schedule</button>
+</form>

@@ -5,21 +5,14 @@ require 'active_record'
 require_relative 'models/client' 
 require_relative 'models/client_note'
 require_relative 'models/employee'
+require_relative 'models/emp_work_hour'
 require_relative 'db_config' 
 
 enable :sessions
 
 helpers do
 
-  def logged_in_client
-    Client.where(id: session[:client_id])[0]
-  end
-  def logged_in_employee
-    Employee.where(id: session[:employee_id])[0]
-  end
-  def admin_logged_in?
-    logged_in_employee.admin
-  end
+  require_relative'helpers'
 
 end
 
@@ -42,3 +35,5 @@ require_relative 'routes/employee_session'
 require_relative 'routes/client_me'
 # ------------employee me -----------
 require_relative 'routes/employee_me'
+# ------------work hours -----------
+require_relative 'routes/emp_work_hours'

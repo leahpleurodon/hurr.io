@@ -1,5 +1,7 @@
+DROP TABLE appointments;
 DROP TABLE client_notes;
 DROP TABLE clients;
+DROP TABLE emp_work_hours;
 DROP TABLE employees;
 
 CREATE TABLE clients (
@@ -50,3 +52,33 @@ CREATE TABLE client_notes (
     FOREIGN KEY (author_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
+CREATE TABLE emp_work_hours (
+    id SERIAL4 PRIMARY KEY,
+    employee_id INTEGER NOT NULL,
+    work_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    author_id INTEGER,
+    last_updated TIMESTAMP,
+    date_created TIMESTAMP,
+    active BOOLEAN NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES employees(id) ON DELETE CASCADE
+);
+
+CREATE TABLE appointments (
+    id SERIAL4 PRIMARY KEY,
+    employee_id INTEGER NOT NULL,
+    client_id INTEGER NOT NULL,
+    app_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    app_service VARCHAR(100),
+    end_time TIME NOT NULL,
+    author_id INTEGER,
+    last_updated TIMESTAMP,
+    date_created TIMESTAMP,
+    active BOOLEAN NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES employees(id) ON DELETE CASCADE
+);

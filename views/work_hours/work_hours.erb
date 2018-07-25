@@ -1,0 +1,24 @@
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Employee</th>
+        <th>Start</th>
+        <th>End</th>
+        <th colspan=2></th>
+    </tr>
+    <% @work_hours.each do |schedule| %>
+        <tr>
+            <td><%= schedule.work_date %></td>
+            <td><%= schedule.employee.preferred_name %></td>
+            <td><%= get_time_string(schedule.start_time) %></td>
+            <td><%= get_time_string(schedule.end_time) %></td>
+            <td><a href="/work_hours/<%= schedule.id %>/edit">edit</a></td>
+            <td>
+                <form action="/work_hours/<%= schedule.id %>/delete" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <button>delete</button>
+                </form>
+            </td>
+        </tr>
+    <% end %>
+</table>

@@ -1,0 +1,20 @@
+<h2><%= @employee.preferred_name %>'s schedule</h2>
+<form action="/employees/<%= @employee.id %>/workhours" method="post">
+    <label for="start">Schedule effective</label>
+        <input type="date" name="start">
+    <label for="end">Effective until</label>
+        <input type="date" name="end">
+
+    <% @weekdays.each do |day| %>
+        <label for="<%= day.downcase %>"><%= day %></label>
+        <input type="checkbox" name="<%= day.downcase %>">
+
+        <label for="<%= day.downcase %>-start-time"><%= day %> Start Time</label>
+        <input type="time" name="<%= day.downcase %>-start-time">
+
+        <label for="<%= day.downcase %>-end-time"><%= day %> End Time</label>
+        <input type="time" name="<%= day.downcase %>-end-time">
+
+    <% end %>
+    <button type="submit">Ammend Schedule</button>
+</form>
