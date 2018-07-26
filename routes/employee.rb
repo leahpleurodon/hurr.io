@@ -14,7 +14,11 @@ end
 
 get '/employees' do
   redirect '/' unless admin_logged_in?
-    @employees = Employee.where(active: true)
+    if params['see-terminated'] == 'true'
+      @employees = Employee.where(active: true, terminated: true)
+    else
+      @employees = Employee.where(active: true, terminated: false)
+    end
     erb :'employees/index', layout: :'layouts/admin'
 end
   

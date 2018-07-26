@@ -1,15 +1,21 @@
-<table>
-   <tr>
-      <th COLSPAN="7">
-         <h2>Employees</h2>
-      </th>
-    </tr>
+view: 
+<form action="/employees" method=get>
+    <input type="hidden" name="see-terminated" value="false">
+    <button>See Current</button>
+</form>
+<form action="/employees" method=get>
+    <input type="hidden" name="see-terminated" value="true">
+    <button>See terminated</button>
+</form>
+
+<h2>Employees</h2>
+<table> 
     <tr>
         <th></th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Phone</th>
-        <th COLSPAN=3></th>
+        <th COLSPAN=2></th>
     </tr>
     <% @employees.each do |employee| %>
         <tr>

@@ -1,0 +1,72 @@
+
+<h2>Booking requests</h2>
+view: 
+<form action="/booking_requests" method=get>
+    <button>All</button>
+</form>
+<form action="/booking_requests" method=get>
+    <input type="hidden" name="status" value="new">
+    <button>New</button>
+</form>
+<form action="/booking_requests" method=get>
+    <input type="hidden" name="status" value="denied">
+    <button>Denied</button>
+</form>
+<form action="/booking_requests" method=get >
+    <input type="hidden" name="status" value= "approved">
+    <button>Approved</button>
+</form>
+<table> 
+    <tr>
+        <th>Requested Date</th>
+        <th>Requested Employee</th>
+        <th>Client</th>        
+        <th>Phone</th>
+        <th>Requested Time</th>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Appointment</th>
+        <th COLSPAN=3></th>
+    </tr>
+    <% @requests.each do |req| %>
+        <tr>
+            <td><%= get_date_stringDMY(req.app_date) %></td>
+            <td><%= req.employee.preferred_name %></td>
+            <% if !!req.client_id %>
+                <td><a href="/clients/<%= req.client.id %>"><%= req.client.preferred_name %></a></td>
+                <td><%= req.client.phone %></td>
+            <% else %>
+                <td><%= req.anon_name %></td>
+                <td><%= req.anon_phone %></td>
+            <% end %>
+            <td><%= "#{get_time_string12h(req.start_time)} - #{get_time_string12h(req.end_time)}" %></td>
+            <td><%= req.app_service %></td>
+            <td><%= req.request_status %></td>
+            <td>
+                <% if !!req.appointment_id %>
+                    <a href="/appointments/<%= req.appointment.id %>">show</a>
+                <% end %>
+            </td>
+            <% unless req.request_status == 'approved' %>
+                <td>
+                    <form action="/booking_request/<%= req.id %>/approve" method="post">
+                        <input type="hidden" name="_method" value="put">
+                        <button>Approve</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/booking_request/<%= req.id %>/deny" method="post">
+                        <input type="hidden" name="_method" value="put">
+                        <button>Deny</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/booking_request/<%= req.id %>/delete" method="post">
+                        <input type="hidden" name="_method" value="put">
+                        <button>Deny</button>
+                    </form>
+                </td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>

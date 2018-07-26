@@ -80,12 +80,9 @@ put '/clients/:id' do
     client.photo = params["photo"]
     client.last_update = Time.now
     client.save
-  end
   
   redirect "/clients/#{params[:id]}" if logged_in_employee
   redirect '/client/me' if session[:client_id].to_s == params[:id]
-
-  end
 end
 
   

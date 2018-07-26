@@ -69,4 +69,19 @@ def seed_clients
         )
         c.save
     end
+    #seed anon client
+    anon = Client.new(
+        first_name: 'anonymous',
+        password: ("a".."z").to_a.sample(10).join,
+        last_name: 'client',
+        preferred_name: 'anon',
+        title: 'miss',
+        email: 'noreply@hurr.io',
+        dob: '01-01-2000',
+        phone: '94706342',
+        active: true,
+        last_update: Time.now,
+        date_created: Time.now  
+    )
+    anon.save
 end

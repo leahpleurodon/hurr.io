@@ -2,6 +2,7 @@ require 'pry'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
+require 'pony'
 require_relative 'models/client' 
 require_relative 'models/client_note'
 require_relative 'models/employee'
@@ -19,6 +20,9 @@ helpers do
 
 end
 
+get '/thanks' do
+ "Thank you for your booking, someone will call shortly to confirm the booking"
+end
 
 get '/' do
   erb :index
