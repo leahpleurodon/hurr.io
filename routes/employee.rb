@@ -1,5 +1,5 @@
 post '/employees/:id/image' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     tempfile = params[:file][:tempfile] 
     fileext = File.extname(params[:file][:filename])
     img_path = "/uploads/photos/employee/employee_#{params[:id]}#{fileext}"
@@ -11,7 +11,7 @@ post '/employees/:id/image' do
 end
 
 get '/employees' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     if params['see-terminated'] == 'true'
       @employees = Employee.where(active: true, terminated: true)
     else
@@ -21,19 +21,19 @@ get '/employees' do
 end
   
 get '/employees/:id' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     @employee = Employee.find(params[:id])
     erb :"employees/show", layout: :'layouts/admin'
 end
 
 get '/employee/new' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
     erb :"employees/new", layout: :'layouts/admin'
 end
 
 post '/employee' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     employee = Employee.new(
       first_name: params["first-name"],
       password: params["first-name"]|| params["first-name"],
@@ -57,14 +57,14 @@ post '/employee' do
 end
 
 get '/employees/:id/edit' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     @employee = Employee.find(params[:id])
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
     erb :"employees/edit", layout: :'layouts/admin'
 end
 
 put '/employees/:id/deactivate' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     employee = Employee.find(params[:id])
     employee.active = false
     employee.save
@@ -72,7 +72,7 @@ put '/employees/:id/deactivate' do
 end
 
 put '/employees/:id' do
-  redirect '/' unless admin_logged_in?
+  redirect '/admin_index' unless admin_logged_in?
     employee = Employee.find(params[:id])
     employee.first_name = params["first-name"]
     employee.password = params["first-name"]

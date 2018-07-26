@@ -1,26 +1,32 @@
-<h2>My Account</h2>
-<img src="<%= @employee.photo %>" alt="My Profile">
-<form action='/employee/me/image' enctype="multipart/form-data" method='POST'>
-    <input name="file" type="file" />
-    <input type="submit" value="Upload" />
-</form>
-<h3>First Name</h3>
-<%= @employee.first_name %>
-<h3>Last Name</h3>
-<%= @employee.last_name %>
-<h3>Preferred Name</h3>
-<%= @employee.preferred_name %>
-<h3>Title</h3>
-<%= @employee.title %>
-<h3>Email</h3>
-<%= @employee.email %>
-<h3>Date of Birth</h3>
-<%= @employee.dob %>
-<h3>Phone</h3>
-<%= @employee.phone %>
-<h3>Last Updated</h3>
-<%= @employee.last_update %>
-<h3>Date Created</h3>
-<%= @employee.date_created %>
-<h3>Date Started</h3>
-<%= @employee.date_started %>
+<div class="container">
+    <div class="profile">
+        <h2>My Account</h2>
+        <% if !!@employee.photo %>
+            <img src="<%= @employee.photo%>" alt="My Profile" class="profile-pic">
+        <% end %>
+        <form action='/employee/me/image' enctype="multipart/form-data" method='POST'>
+            <input name="file" type="file" />
+            <input type="submit" value="Upload" />
+        </form>
+        <h3>First Name</h3>
+        <%= @employee.first_name %>
+        <h3>Last Name</h3>
+        <%= @employee.last_name %>
+        <h3>Preferred Name</h3>
+        <%= @employee.preferred_name %>
+        <h3>Title</h3>
+        <%= @employee.title %>
+        <h3>Email</h3>
+        <%= @employee.email %>
+        <h3>Date of Birth</h3>
+        <%= @employee.dob %>
+        <h3>Phone</h3>
+        <%= @employee.phone %>
+        <h3>Last Updated</h3>
+        <%= @employee.last_update %>
+        <h3>Date Created</h3>
+        <%= @employee.date_created %>
+        <h3>Date Started</h3>
+        <%= @employee.date_started %>
+    </div>
+</div>

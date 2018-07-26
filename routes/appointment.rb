@@ -1,21 +1,21 @@
 get '/appointments' do
     redirect '/' unless logged_in_employee
     @appointments = Appointment.where(active: true)
-    erb :"appointments/index"
+    erb :"appointments/index", layout: :'layouts/admin'
 end
 
 get '/appointments/:id/edit' do
     redirect '/' unless logged_in_employee
         @employees = Employee.where(active: true, terminated: false)
         @appointment = Appointment.find(params[:id])
-        erb :"appointments/edit"
+        erb :"appointments/edit", layout: :'layouts/admin'
 end
 
 get '/appointments/:id' do
     redirect '/' unless logged_in_employee
         @appointment = Appointment.find(params[:id])
         @appointment_notes = AppointmentNote.where(appointment_id: params[:id], active: true)
-        erb :"appointments/show"
+        erb :"appointments/show", layout: :'layouts/admin'
 end
 
 put '/appointments/:id' do
@@ -35,7 +35,7 @@ get '/clients/:id/appointments/new' do
     redirect '/' unless logged_in_employee
         @employees = Employee.where(active: true, terminated: false)
         @client = Client.find(params[:id])
-    erb :"appointments/new"
+    erb :"appointments/new", layout: :'layouts/admin'
 end
 
 put '/appointments/:id/delete' do

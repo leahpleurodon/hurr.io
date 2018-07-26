@@ -1,23 +1,26 @@
 <form action="/get_times" method="get">
     <select name="date">
         <% (Date.today..(Date.today + 10.days)).each do |date| %>
-            <option value="<%= date %>"><%= get_date_string(date) %></option>
+            <% if @date == date %>
+                <option selected="selected" value="<%= date %>"><%= get_date_string(date) %></option>
+            <% else %>
+                <option value="<%= date %>"><%= get_date_string(date) %></option>
+            <% end %>
         <% end %>
     </select>
     <button>Select Date</button>
 </form>
-
+<h2><%= @date %></h2>
 <% @shifts.each do | shift | %>
     <h2><%= shift.employee.preferred_name %></h2>
-    <% @emp_availability[shift.employee_id].each do |time| %>
-        <div>
-        <form action="/request_booking">
-            <input type="hidden" name="start-time" value="<%= get_time_string(time) %>">
-            <input type="hidden" name="employee" value="<%= shift.employee_id %>">
-            <input type="hidden" name="date" value="<%= shift.work_date %>">
-            <button><%= get_time_string12h(time) %></button>
-        </form>
-        </a>
-        </div>
-    <% end %>
+    <div class="time-div">
+        <% @emp_availability[shift.employee_id].each do |time| %>
+            <form action="/request_booking" class="time-form">
+                <input type="hidden" name="start-time" value="<%= time %>">
+                <input type="hidden" name="employee" value="<%= shift.employee_id %>">
+                <input type="hidden" name="date" value="<%= shift.work_date %>">
+                <button class="time-button"><%= get_time_string12h(time) %></button>
+            </form>
+        <% end %>
+    </div>
 <% end %>

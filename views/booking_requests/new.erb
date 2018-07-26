@@ -1,5 +1,6 @@
-Submit your booking for: <%= @start_time %> with <%= @employee.preferred_name %> on
-<%= get_date_stringDMY(@date) %>
+
+<p>Submit your booking for: <%= get_time_string12h(Time.parse(@start_time)) %> with <%= @employee.preferred_name %> on
+<%= get_date_stringDMY(@date) %></p>
 
 <form action="/booking_request" method="post">
     <label for="service">Select your Service</label>

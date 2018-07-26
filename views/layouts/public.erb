@@ -2,12 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello World</title>
+  <title>HURR.IO</title>
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Montserrat" rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/main.css'>
 </head>
 <body>
-
-  <%= yield %>
+  <header>
+    <h1>HURR.IO</h1>
+    <nav>
+      <ul>
+      <li><a href="/">HOME</a></li>
+      <li><a href="/services">SERVICES</a></li>
+      <li><a href="/get_times">REQUEST A BOOKING</a></li>
+      <li><a href="/about">ABOUT US</a></li>
+      </ul>
+      <section class="login">
+        <% unless logged_in_client %>
+          <a href="/client_sessions">LOGIN</a>
+        <% else %>
+          <form action="/client_session" method="post" class="logout">
+            <input type="hidden" name="_method" value="delete">
+            Welcome: <%= logged_in_client.preferred_name %>
+            <br/>
+            (<a href="/client/me">My Account</a> | <button>Logout</button>)
+          </form>
+        <% end %>
+      </section>
+    </nav>
+  </header>
+  <main>
+    <%= yield %>
+  </main>
 
 </body>
 </html>

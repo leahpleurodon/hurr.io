@@ -2,12 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello World</title>
+  <title>HURR.IO</title>
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Montserrat" rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/main.css'>
 </head>
 <body>
-
-  <%= yield %>
+  <header>
+    <h1>HURR.IO - ADMIN</h1>
+    <nav>
+      <ul>
+      <li><a href="/admin_index">HOME</a></li>
+      <li><a href="/clients">CLIENTS</a></li>
+      <li><a href="/appointments">APPOINTMENTS</a></li>
+      <li><a href="/booking_requests">BOOKING REQUESTS</a></li>
+      <li>
+        <div class="dropdown">
+          <a href="#" class="dropbtn">ADMIN</a>
+          <div class="dropdown-content">
+            <a href="/employees">Employees</a>
+            <a href="/work_hours">Work Hours</a>
+          </div>
+        </div>
+      </li>
+      </ul>
+      <section class="login">
+        <% unless logged_in_employee %>
+          <a href="/admin">LOGIN</a>
+        <% else %>
+          <form action="/employee_session" method="post" class="logout">
+            <input type="hidden" name="_method" value="delete">
+            Welcome: <%= logged_in_employee.preferred_name %>
+            <br/>
+            (<a href="/employee/me">My Profile</a> | <button>Logout</button>)
+          </form>
+        <% end %>
+      </section>
+    </nav>
+  </header>
+  <main>
+    <%= yield %>
+  </main>
 
 </body>
 </html>

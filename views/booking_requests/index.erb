@@ -1,18 +1,18 @@
 
 <h2>Booking requests</h2>
 view: 
-<form action="/booking_requests" method=get>
+<form action="/booking_requests" method="get" class="filter">
     <button>All</button>
 </form>
-<form action="/booking_requests" method=get>
-    <input type="hidden" name="status" value="new">
+<form action="/booking_requests" method="get" class="filter">
+    <input type="hidden" name="status" value="new" >
     <button>New</button>
 </form>
-<form action="/booking_requests" method=get>
+<form action="/booking_requests" method="get" class="filter">
     <input type="hidden" name="status" value="denied">
     <button>Denied</button>
 </form>
-<form action="/booking_requests" method=get >
+<form action="/booking_requests" method="get" class="filter">
     <input type="hidden" name="status" value= "approved">
     <button>Approved</button>
 </form>
@@ -49,21 +49,21 @@ view:
             </td>
             <% unless req.request_status == 'approved' %>
                 <td>
-                    <form action="/booking_request/<%= req.id %>/approve" method="post">
+                    <form action="/booking_request/<%= req.id %>/approve" method="post" class="record-edit">
                         <input type="hidden" name="_method" value="put">
                         <button>Approve</button>
                     </form>
                 </td>
                 <td>
-                    <form action="/booking_request/<%= req.id %>/deny" method="post">
+                    <form action="/booking_request/<%= req.id %>/deny" method="post" class="record-edit">
                         <input type="hidden" name="_method" value="put">
                         <button>Deny</button>
                     </form>
                 </td>
                 <td>
-                    <form action="/booking_request/<%= req.id %>/delete" method="post">
+                    <form action="/booking_request/<%= req.id %>/delete" method="post" class="record-edit">
                         <input type="hidden" name="_method" value="put">
-                        <button>Deny</button>
+                        <button>Delete</button>
                     </form>
                 </td>
             <% end %>

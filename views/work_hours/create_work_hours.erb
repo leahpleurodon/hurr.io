@@ -1,4 +1,5 @@
 <h2><%= @employee.preferred_name %>'s schedule</h2>
+<p>Please note: Any pre existing scheduled hours that over lap with the newly created ones will be destroyed.</p>
 <form action="/employees/<%= @employee.id %>/workhours" method="post">
     <label for="start">Schedule effective</label>
         <input type="date" name="start">

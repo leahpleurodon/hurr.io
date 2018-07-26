@@ -19,11 +19,25 @@ helpers do
 end
 
 get '/thanks' do
- "Thank you for your booking, someone will call shortly to confirm the booking"
+ erb :thanks, layout: :'layouts/public'
 end
 
 get '/' do
-  erb :index
+  if logged_in_employee
+    erb :index, layout: :'layouts/admin'
+  else
+    erb :index, layout: :'layouts/public' 
+  end
+end
+get '/about' do
+  erb :about, layout: :'layouts/public'
+end
+get '/services' do
+  erb :services, layout: :'layouts/public'
+end
+get '/admin_index' do
+  redirect '/' unless logged_in_employee
+  erb :admin_index, layout: :'layouts/admin'
 end
 #------------------------- routes----------------------------
 # ------------clients-----------

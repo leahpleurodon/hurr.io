@@ -7,7 +7,7 @@ get '/get_times' do
     @shifts = EmpWorkHour.where(work_date: @date)
     @appointments = Appointment.where(app_date: @date)
     @emp_availability = AvailabilityGen.new(@appointments,@shifts).generate!.emp_available_times
-    erb :"booking_requests/get_times"
+    erb :"booking_requests/get_times", layout: :'layouts/public'
 end
 
 get '/request_booking' do
@@ -17,7 +17,7 @@ get '/request_booking' do
     @date = Date.parse(params['date'])
     @employee = Employee.find(params['employee'])
     @client = session[:client_id]
-    erb :"booking_requests/new"
+    erb :"booking_requests/new", layout: :'layouts/public'
 end
 
 post '/booking_request' do
@@ -47,7 +47,7 @@ get '/booking_requests' do
         else
             @requests = BookingRequest.where(active: true)
         end
-        erb :'booking_requests/index'
+        erb :'booking_requests/index', layout: :'layouts/admin'
 
 end
 

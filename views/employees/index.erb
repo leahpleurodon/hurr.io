@@ -1,9 +1,9 @@
 view: 
-<form action="/employees" method=get>
+<form action="/employees" method="get" class="filter">
     <input type="hidden" name="see-terminated" value="false">
     <button>See Current</button>
 </form>
-<form action="/employees" method=get>
+<form action="/employees" method="get" class="filter">
     <input type="hidden" name="see-terminated" value="true">
     <button>See terminated</button>
 </form>
@@ -15,7 +15,7 @@ view:
         <th>First Name</th>
         <th>Last Name</th>
         <th>Phone</th>
-        <th COLSPAN=2></th>
+        <th COLSPAN=3></th>
     </tr>
     <% @employees.each do |employee| %>
         <tr>

@@ -1,9 +1,14 @@
-<h2><%= @client.full_preferred_name %></h2>
-<img src="<%= @client.photo %>" alt="Profile Picture">
-<form action='/clients/<%= @client.id %>/image' enctype="multipart/form-data" method='POST'>
-    <input name="file" type="file" />
-    <input type="submit" value="Upload" />
-</form>
+
+<div class="container">
+    <h2><%= @client.full_preferred_name %></h2>
+        <% if !!@client.photo %>
+            <img src="<%= @client.photo%>" alt="My Profile" class="profile-pic">
+        <% end %>
+        <form action='/client/me/image' enctype="multipart/form-data" method='POST'>
+            <input name="file" type="file" />
+            <input type="submit" value="Upload New Pic" />
+        </form>
+    <div class="profile">
 <h3>First Name</h3>
 <%= @client.first_name %>
 <h3>Last Name</h3>
@@ -36,17 +41,21 @@
         </textarea>
     <button type="submit">Save</button>
 </form>
-
-<% @client_notes.each do |note| %>
-    <%= note.note %> - 
-    Created on:
-    <%= note.date_created %>
-    By:
-    <%= note.employee.full_preferred_name %>
-    <a href="/client_notes/<%= note.id %>/edit">edit</a>
-
-    <form action="/client_notes/<%= note.id %>/deactivate" method="post">
-        <input type="hidden" name="_method" value="put">
-        <button>Deactivate Note</button>
-    </form>
-<% end %>
+    <div class="notes">
+        <h2>My Notes:</h2>
+        <% @client_notes.each do |note| %>
+        <hr>
+            <p><%= note.note %></p>- 
+            <p>Created on:
+            <%= get_date_stringDMY(note.date_created) %>
+            By:
+            <%= note.employee.full_preferred_name %></p>
+            <a href="/client_notes/<%= note.id %>/edit">edit</a>
+            <form action="/client_notes/<%= note.id %>/deactivate" method="post">
+                <input type="hidden" name="_method" value="put">
+            <button>Deactivate Note</button>
+        </form>
+        <hr>
+        <% end %>
+    </div>
+</div>
