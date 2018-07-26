@@ -1,34 +1,25 @@
 get '/appointments' do
-    if logged_in_employee
-        @appointments = Appointment.where(active: true)
-        erb :"appointments/index"
-    else
-        redirect '/'
-    end
+    redirect '/' unless logged_in_employee
+    @appointments = Appointment.where(active: true)
+    erb :"appointments/index"
 end
 
 get '/appointments/:id/edit' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         @employees = Employee.where(active: true, terminated: false)
         @appointment = Appointment.find(params[:id])
         erb :"appointments/edit"
-    else
-        redirect '/'
-    end
 end
 
 get '/appointments/:id' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         @appointment = Appointment.find(params[:id])
         @appointment_notes = AppointmentNote.where(appointment_id: params[:id], active: true)
         erb :"appointments/show"
-    else
-        redirect '/'
-    end
 end
 
 put '/appointments/:id' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         appointment = Appointment.find(params[:id])
         appointment.employee_id = params['employee-id']
         appointment.app_date = params['app-date']
@@ -38,34 +29,25 @@ put '/appointments/:id' do
         appointment.last_updated = Time.now
         appointment.save
         redirect '/appointments'
-    else
-        redirect '/'
-    end
 end
 
 get '/clients/:id/appointments/new' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         @employees = Employee.where(active: true, terminated: false)
         @client = Client.find(params[:id])
     erb :"appointments/new"
-    else
-        redirect '/'
-    end
 end
 
 put '/appointments/:id/delete' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         appointment = Appointment.find(params[:id])
         appointment.active = false
         appointment.save
         redirect '/appointments'
-    else
-        redirect '/'
-    end
 end
 
 post '/appointments' do
-    if logged_in_employee
+    redirect '/' unless logged_in_employee
         appointment = Appointment.new(
             employee_id: params['employee-id'],
             client_id: params['client-id'],
@@ -80,7 +62,4 @@ post '/appointments' do
         )
         appointment.save
         redirect '/appointments'
-    else
-        redirect '/'
-    end
 end

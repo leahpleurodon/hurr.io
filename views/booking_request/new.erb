@@ -1,0 +1,21 @@
+Submit your booking for: <%= @start_time %> with <%= @employee.preferred_name %> on
+<%= get_date_stringDMY(@date) %>
+
+<form action="/booking_request" method="post">
+    <label for="service">Select your Service</label>
+        <input type="text" name="service">
+    
+    <% unless @client %>
+        <label for="anon-name">Name:</label>
+            <input type="text" name="anon-name">
+        <label for="anon-phone">Phone Number:</label>
+            <input type="tel" name="anon-phone">
+        <p>already a client with us? sign in to track your appointments.</p>
+    <% end %>
+    <input type="hidden" name="date" value="<%= @date %>">
+    <input type="hidden" name="start-time" value="<%= @start_time %>">
+    <input type="hidden" name="employee-id" value="<%= @employee.id %>">
+
+    <button>Submit Request</button>
+
+</form>

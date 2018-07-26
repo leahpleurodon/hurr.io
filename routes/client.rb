@@ -1,5 +1,5 @@
 post '/clients/:id/image' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     tempfile = params[:file][:tempfile] 
     fileext = File.extname(params[:file][:filename])
     img_path = "/uploads/photos/client/client_#{params[:id]}#{fileext}"
@@ -8,42 +8,30 @@ post '/clients/:id/image' do
     emp.photo = img_path
     emp.save
     redirect "/clients/#{params[:id]}"
-  else
-    redirect '/'
-  end
 end
 
 
 get '/clients' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     @clients = Client.where(active: true)
     erb :'clients/index', layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
   
 get '/clients/:id' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     @client = Client.find(params[:id])
     @client_notes = ClientNote.where(client_id: @client.id,active: true)
     erb :"clients/show", layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
 
 get '/client/new' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
     erb :"clients/new", layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
 
 post '/client' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     client = Client.new(
       first_name: params["first-name"],
       last_name: params["last-name"],
@@ -58,35 +46,29 @@ post '/client' do
     )
     client.save
     redirect '/clients'
-  else
-    redirect '/'
-  end
 end
 
 get '/clients/:id/edit' do
-  if session[:client_id].to_s == params[:id] || logged_in_employee
+  redirect '/' unless session[:client_id].to_s == params[:id] || logged_in_employee
     @client = Client.find(params[:id])
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
-    erb :"/clients/edit", layout: :'layouts/public'
-  else
-    redirect '/'
-  end
+    if logged_in_employee
+      erb :"/clients/edit", layout: :'layouts/admin'
+    else  
+      erb :"/clients/edit", layout: :'layouts/public'
+    end
 end
 
 put '/clients/:id/deactivate' do
-  if logged_in_employee
+  redirect '/' unless logged_in_employee
     client = Client.find(params[:id])
     client.active = false
     client.save
     redirect '/clients'
-  else
-    redirect '/'
-  end
 end
 
 put '/clients/:id' do
-
-  if session[:client_id].to_s == params[:id] || logged_in_employee
+  redirect '/' unless session[:client_id].to_s == params[:id] || logged_in_employee
     client = Client.find(params[:id])
     client.first_name = params["first-name"]
     client.last_name = params["last-name"]
@@ -99,12 +81,10 @@ put '/clients/:id' do
     client.last_update = Time.now
     client.save
   end
-  if logged_in_employee
-    redirect "/clients/#{params[:id]}"
-  elsif session[:client_id].to_s == params[:id]
-    redirect '/client/me'
-  else
-    redirect '/'
+  
+  redirect "/clients/#{params[:id]}" if logged_in_employee
+  redirect '/client/me' if session[:client_id].to_s == params[:id]
+
   end
 end
 

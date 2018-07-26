@@ -1,7 +1,7 @@
 require 'pry'
 
 post '/employees/:id/image' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     tempfile = params[:file][:tempfile] 
     fileext = File.extname(params[:file][:filename])
     img_path = "/uploads/photos/employee/employee_#{params[:id]}#{fileext}"
@@ -10,40 +10,28 @@ post '/employees/:id/image' do
     emp.photo = img_path
     emp.save
     redirect "/employees/#{params[:id]}"
-  else
-    redirect '/'
-  end
 end
 
 get '/employees' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     @employees = Employee.where(active: true)
     erb :'employees/index', layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
   
 get '/employees/:id' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     @employee = Employee.find(params[:id])
     erb :"employees/show", layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
 
 get '/employee/new' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
     erb :"employees/new", layout: :'layouts/admin'
-  else 
-    redirect '/'
-  end
 end
 
 post '/employee' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     employee = Employee.new(
       first_name: params["first-name"],
       password: params["first-name"]|| params["first-name"],
@@ -64,34 +52,25 @@ post '/employee' do
     )
     employee.save
     redirect "/employees"
-  else
-    redirect '/'
-  end
 end
 
 get '/employees/:id/edit' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     @employee = Employee.find(params[:id])
     @titles = %w(Mrs Mr Miss Miss Master Sir Lady Lord Dr)
     erb :"employees/edit", layout: :'layouts/admin'
-  else
-    redirect '/'
-  end
 end
 
 put '/employees/:id/deactivate' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     employee = Employee.find(params[:id])
     employee.active = false
     employee.save
     redirect "/employees"
-  else
-    redirect '/'
-  end
 end
 
 put '/employees/:id' do
-  if admin_logged_in?
+  redirect '/' unless admin_logged_in?
     employee = Employee.find(params[:id])
     employee.first_name = params["first-name"]
     employee.password = params["first-name"]
@@ -108,9 +87,6 @@ put '/employees/:id' do
     employee.last_update = Time.now
     employee.save
     redirect "/employees/#{employee.id}"
-  else
-    redirect '/'
-  end
 end
 
 

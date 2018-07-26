@@ -8,6 +8,7 @@ require_relative 'models/employee'
 require_relative 'models/emp_work_hour'
 require_relative 'models/appointment_note'
 require_relative 'models/appointment'
+require_relative 'models/booking_request'
 require_relative 'db_config' 
 
 enable :sessions
@@ -22,7 +23,7 @@ end
 get '/' do
   erb :index
 end
-
+#------------------------- routes----------------------------
 # ------------clients-----------
 require_relative 'routes/client'
 # ------------client notes-----------
@@ -43,3 +44,5 @@ require_relative 'routes/emp_work_hour'
 require_relative 'routes/appointment'
 # ------------appointment notes -----------
 require_relative 'routes/appointment_note'
+# ------------booking requests -----------
+require_relative 'routes/booking_request'

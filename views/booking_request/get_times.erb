@@ -1,0 +1,23 @@
+<form action="/get_times" method="get">
+    <select name="date">
+        <% (Date.today..(Date.today + 10.days)).each do |date| %>
+            <option value="<%= date %>"><%= get_date_string(date) %></option>
+        <% end %>
+    </select>
+    <button>Select Date</button>
+</form>
+
+<% @shifts.each do | shift | %>
+    <h2><%= shift.employee.preferred_name %></h2>
+    <% @emp_availability[shift.employee_id].each do |time| %>
+        <div>
+        <form action="/request_booking">
+            <input type="hidden" name="start-time" value="<%= get_time_string(time) %>">
+            <input type="hidden" name="employee" value="<%= shift.employee_id %>">
+            <input type="hidden" name="date" value="<%= shift.work_date %>">
+            <button><%= get_time_string12h(time) %></button>
+        </form>
+        </a>
+        </div>
+    <% end %>
+<% end %>
