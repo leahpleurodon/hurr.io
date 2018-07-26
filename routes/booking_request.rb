@@ -1,6 +1,5 @@
 require_relative "../services/availability_gen"
 require_relative "../services/booking_to_app"
-require 'pry'
 
 
 get '/get_times' do
@@ -75,9 +74,7 @@ put '/booking_request/:id/approve' do
     redirect '/' unless logged_in_employee
     br = BookingRequest.find(params[:id])
     br.request_status = 'approved'
-    
     convert_to_app = BookingToApp.new(br, session[:employee_id]).perform!
-    binding.pry
     br.save
     redirect '/booking_requests'
 

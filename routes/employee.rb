@@ -1,5 +1,3 @@
-require 'pry'
-
 post '/employees/:id/image' do
   redirect '/' unless admin_logged_in?
     tempfile = params[:file][:tempfile] 

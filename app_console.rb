@@ -1,4 +1,3 @@
-#pry sesh with your data models loaded.
 require 'pry'
 require_relative 'db_config'
 require_relative 'models/client'

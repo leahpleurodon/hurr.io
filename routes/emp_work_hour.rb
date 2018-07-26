@@ -1,5 +1,3 @@
-require 'pry'
-
 get '/employees/:id/work_hours/edit' do
     redirect '/' unless admin_logged_in?
         @weekdays = %w(Monday Tuesday Wednesday Thursday Friday Saturday Sunday)
