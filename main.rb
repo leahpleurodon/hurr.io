@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
-require 'pony'
 require_relative 'models/client' 
 require_relative 'models/client_note'
 require_relative 'models/employee'
