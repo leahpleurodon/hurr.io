@@ -8,6 +8,7 @@ class BookingToApp
     def perform!
         create_app
         update_req
+        anon_client_note
         self
     end
     def create_app
@@ -25,6 +26,19 @@ class BookingToApp
             active: true
         )
         @appointment.save
+    end
+    def anon_client_note
+        if !@request.client_id
+            note = AppointmentNote.new(
+                note: "Client Name: #{@request.anon_name}\n Client Phone: #{@request.anon_phone}",
+                active: true,
+                appointment_id: @appointment.id,
+                author_id: @author,
+                last_update: Time.now,
+                date_created: Time.now
+              )
+              note.save
+        end
     end
     def update_req
        @request.appointment_id = @appointment.id

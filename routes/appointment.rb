@@ -1,3 +1,4 @@
+
 get '/appointments' do
     redirect '/' unless logged_in_employee
     @appointments = Appointment.where(active: true)

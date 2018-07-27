@@ -17,6 +17,9 @@ select{
     font-size: 1vw;
     padding:0;
 }
+textarea{
+    text-align: left;
+}
 input{
     width: 25vw;
     height: 3vh;
@@ -26,12 +29,13 @@ body{
     margin:0;
 }
 a, a:visited{
+    font-weight: 800;
     display: inline-block;
     text-decoration: none;
     color: black;
 }
 a:hover{
-    font-weight: 800;
+    font-weight: 200;
     color: mediumslateblue;
 }
 main{
@@ -53,6 +57,10 @@ nav{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     margin-bottom:1px;
+}
+.inline-form{
+    display: inline-block;
+    width: auto;
 }
 .logout button, .record-edit button, table button{
     display: inline;

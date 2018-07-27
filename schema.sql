@@ -103,6 +103,7 @@ CREATE TABLE booking_requests (
     client_id INTEGER,
     anon_phone VARCHAR(20),
     anon_name VARCHAR(100),
+    anon_email VARCHAR(200),
     app_date DATE NOT NULL,
     start_time TIME NOT NULL,
     app_service VARCHAR(100),
@@ -116,3 +117,4 @@ CREATE TABLE booking_requests (
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
     FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE
 );
+

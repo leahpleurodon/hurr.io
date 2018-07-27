@@ -24,14 +24,17 @@
 </form>
 
 <% @appointment_notes.each do |note| %>
-    <%= note.note %> - 
-    Created on:
-    <%= note.date_created %>
+    <hr>
+    <p><%= note.note %></p>- 
+    <p>Created on:
+    <%= get_date_stringDMY(note.date_created) %>
     By:
-    <%= note.employee.full_preferred_name %>
-    <a href="/appointment_notes/<%= note.id %>/edit">edit</a>
+    <%= note.employee.full_preferred_name %></p>
+    <a href="/client_notes/<%= note.id %>/edit">edit</a>
     <form action="/appointment_notes/<%= note.id %>/deactivate" method="post">
         <input type="hidden" name="_method" value="put">
         <button>Deactivate Note</button>
     </form>
+    <hr>
 <% end %>
+

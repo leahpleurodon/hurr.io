@@ -1,7 +1,7 @@
 <form action="/get_times" method="get">
     <select name="date">
         <% (Date.today..(Date.today + 10.days)).each do |date| %>
-            <% if @date == date %>
+            <% if @date ==  get_date_string(date) %>
                 <option selected="selected" value="<%= date %>"><%= get_date_string(date) %></option>
             <% else %>
                 <option value="<%= date %>"><%= get_date_string(date) %></option>

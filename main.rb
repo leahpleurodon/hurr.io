@@ -1,3 +1,4 @@
+require 'dotenv/load'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
@@ -9,6 +10,7 @@ require_relative 'models/appointment_note'
 require_relative 'models/appointment'
 require_relative 'models/booking_request'
 require_relative 'db_config' 
+
 
 enable :sessions
 

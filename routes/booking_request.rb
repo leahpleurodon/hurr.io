@@ -1,6 +1,6 @@
 require_relative "../services/availability_gen"
 require_relative "../services/booking_to_app"
-
+require_relative "../services/hurr_mailer"
 
 get '/get_times' do
     @date =  params[:date] ? params[:date] : Date.today
@@ -27,6 +27,7 @@ post '/booking_request' do
         client_id: session[:client_id] || nil,
         anon_phone: params['anon-phone'],
         anon_name: params['anon-name'],
+        anon_email: params['anon-email'],
         app_date: Date.parse(params['date']),
         start_time: Time.parse(params['start-time']),
         app_service: params['service'],
@@ -37,6 +38,13 @@ post '/booking_request' do
         active: true
     )
     br.save
+    send_to = !!br.client_id ? br.client.email : br.anon_email
+    mail = HurrMail.new(
+        "Thanks for booking your appointment with hurr.io\nWe are currently reviewing your request for an appointment at #{get_time_string12h(br.start_time)} on #{get_date_stringDMY(br.app_date)} for a #{br.app_service}",
+        'Regarding your booking at HURR.IO',
+        send_to
+    )
+    mail.send!
     redirect '/thanks'
 end
 
@@ -45,21 +53,25 @@ get '/booking_requests' do
         if !!params['status'] 
             @requests =  BookingRequest.where(active: true, request_status: params['status'])
         else
-            @requests = BookingRequest.where(active: true)
+            @requests = BookingRequest.where(active: true, request_status: 'new')
         end
         erb :'booking_requests/index', layout: :'layouts/admin'
 
 end
-
-
 
 put '/booking_request/:id/deny' do
     redirect '/' unless logged_in_employee
     br = BookingRequest.find(params[:id])
     br.request_status = 'denied'
     br.save
+    send_to = !!br.client_id ? br.client.email : br.anon_email
+    mail = HurrMail.new(
+        "Thanks for booking your appointment with hurr.io\nWe are currently not able to facilitate your appointment at #{get_time_string12h(br.start_time)} on #{get_date_stringDMY(br.app_date)} for a #{br.app_service}",
+        'Regarding your booking at HURR.IO',
+        send_to
+    )
+    mail.send!
     redirect '/booking_requests'
-
 end
 
 put '/booking_request/:id/delete' do
@@ -76,6 +88,13 @@ put '/booking_request/:id/approve' do
     br.request_status = 'approved'
     convert_to_app = BookingToApp.new(br, session[:employee_id]).perform!
     br.save
+    send_to = !!br.client_id ? br.client.email : br.anon_email
+    mail = HurrMail.new(
+        "Thanks for booking your appointment with hurr.io\nWe shall see you at #{get_time_string12h(br.appointment.start_time)} on #{get_date_stringDMY(br.appointment.app_date)} for a #{br.appointment.app_service}",
+        'Confirmation of your booking at HURR.IO',
+        send_to
+    )
+    mail.send!
     redirect '/booking_requests'
 
 end

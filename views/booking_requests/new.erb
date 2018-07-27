@@ -11,7 +11,10 @@
             <input type="text" name="anon-name">
         <label for="anon-phone">Phone Number:</label>
             <input type="tel" name="anon-phone">
-        <p>already a client with us? sign in to track your appointments.</p>
+        <label for="anon-email">Email Address:</label>
+            <input type="email" name="anon-email">
+            
+        <p>already a client with us? <a href="/client/sessions">sign in</a> to track your appointments.</p>
     <% end %>
     <input type="hidden" name="date" value="<%= @date %>">
     <input type="hidden" name="start-time" value="<%= @start_time %>">

@@ -13,7 +13,9 @@
         <tr>
             <td><%= get_date_string(appointment.app_date) %></td>
             <td><%= get_time_string(appointment.start_time) %> - <%= get_time_string(appointment.end_time) %></td>
-            <td><%= appointment.client.full_preferred_name %></td>
+            <td>
+                <a href="/clients/<%= appointment.client_id%>"><%= appointment.client.full_preferred_name %></a>
+            </td>
             <td><%= appointment.client.phone %></td>
             <td><%= appointment.employee.preferred_name %></td>
             <td><%= appointment.app_service %></td>

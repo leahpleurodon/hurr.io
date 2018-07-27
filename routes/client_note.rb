@@ -13,6 +13,7 @@ post '/client_note' do
     note = ClientNote.new(
       note: params["note"],
       active: true,
+      author_id: session[:employee_id],
       client_id: params["client-id"],
       last_update: Time.now,
       date_created: Time.now

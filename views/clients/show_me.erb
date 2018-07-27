@@ -8,6 +8,11 @@
             <input name="file" type="file" />
             <input type="submit" value="Upload New Pic" />
         </form>
+       (<a href="/client/me/edit">Edit my Account</a>|
+        <form action="/client/me/deactivate" method="post" class="record-edit inline-form">
+            <input type="hidden" name="_method" value="put">
+        <button >Deactivate My Account</button>
+        </form>)
     <div class="profile">
         <h3>First Name</h3>
         <%= @client.first_name %>
