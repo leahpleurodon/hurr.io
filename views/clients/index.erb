@@ -1,18 +1,36 @@
+<style>
+    .thumb-img{
+        background-size: cover;
+        width: 10vh;
+        height: 10vh;
+        margin: auto;
+        background-position: 50% 50%;
+        border-radius: 20vh;
+    }
+ </style>
 <table>
    <tr>
-      <th COLSPAN="7">
+      <th COLSPAN="8">
          <h2>Clients</h2>
       </th>
     </tr>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Phone</th>
-      <th>Date of birth</th>
-      <th COLSPAN=3></th>
+        <th></th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th>Date of birth</th>
+        <th COLSPAN=3></th>
     </tr>
     <% @clients.each do |client| %>
         <tr>
+            <td>
+                <% if !!client.photo %>
+                    <div class="thumb-img" style="background-image: url(<%= client.photo%>);">
+                         &nbsp;
+                     </div>
+                <% end %>
+            </td>
             <td><%= client.first_name %></td>
             <td><%= client.last_name %></td>
             <td><%= client.phone %></td>

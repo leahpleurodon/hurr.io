@@ -1,10 +1,24 @@
+<style>
+    .profile-img{
+        background-image: url(<%= @employee.photo%>);
+        background-size: cover;
+        width: 20vh;
+        height: 20vh;
+        margin: auto;
+        background-position: 50% 50%;
+        border-radius: 20vh;
+    }
+
+</style>
 <div class="container">
     <div class="profile">
         <h2><%= @employee.full_preferred_name %></h2>
         <% if !!@employee.photo %>
-            <img src="<%= @employee.photo%>" alt="My Profile" class="profile-pic">
+            <div class="profile-img">
+                &nbsp;
+            </div>
         <% end %>
-        <form action='/employee/me/image' enctype="multipart/form-data" method='POST'>
+        <form action='/employees/<%= @employee.id %>/image' enctype="multipart/form-data" method='POST'>
             <input name="file" type="file" />
             <input type="submit" value="Upload" />
         </form>

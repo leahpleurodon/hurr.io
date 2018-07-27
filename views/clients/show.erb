@@ -1,10 +1,23 @@
+<style>
+    .profile-img{
+        background-image: url(<%= @client.photo%>);
+        background-size: cover;
+        width: 20vh;
+        height: 20vh;
+        margin: auto;
+        background-position: 50% 50%;
+        border-radius: 20vh;
+    }
 
+</style>
 <div class="container">
     <h2><%= @client.full_preferred_name %></h2>
         <% if !!@client.photo %>
-            <img src="<%= @client.photo%>" alt="My Profile" class="profile-pic">
+            <div class="profile-img">
+                &nbsp;
+            </div>
         <% end %>
-        <form action='/client/me/image' enctype="multipart/form-data" method='POST'>
+        <form action='/clients/<%= @client.id %>/image' enctype="multipart/form-data" method='POST'>
             <input name="file" type="file" />
             <input type="submit" value="Upload New Pic" />
         </form>

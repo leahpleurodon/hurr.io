@@ -35,6 +35,6 @@
             <input type="checkbox" name="terminated"/>
         <% end %>
     <label for="date-terminated">Date Terminated</label>
-        <input type="date" name="date-terminated" value="<%= get_date_string(@employee.date_terminated) %>">
+        <input type="date" name="date-terminated" value="<%= get_date_string(@employee.date_terminated) if !!@employee.date_terminated %>">
     <button type="submit">Save</button>
 </form>

@@ -1,3 +1,13 @@
+<style>
+    .thumb-img{
+        background-size: cover;
+        width: 10vh;
+        height: 10vh;
+        margin: auto;
+        background-position: 50% 50%;
+        border-radius: 20vh;
+    }
+ </style>
 view: 
 <form action="/employees" method="get" class="filter">
     <input type="hidden" name="see-terminated" value="false">
@@ -8,8 +18,12 @@ view:
     <button>See terminated</button>
 </form>
 
-<h2>Employees</h2>
 <table> 
+   <tr>
+      <th COLSPAN="7">
+         <h2>Employees</h2>
+      </th>
+    </tr>
     <tr>
         <th></th>
         <th>First Name</th>
@@ -19,7 +33,13 @@ view:
     </tr>
     <% @employees.each do |employee| %>
         <tr>
-            <td>PICTURE</td>
+            <td>
+                <% if !!employee.photo %>
+                    <div class="thumb-img" style="background-image: url(<%= employee.photo%>);">
+                        &nbsp;
+                    </div>
+                <% end %>
+            </td>
             <td><%= employee.first_name %></td>
             <td><%= employee.last_name %></td>
             <td><%= employee.phone %></td>

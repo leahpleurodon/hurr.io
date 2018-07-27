@@ -1,8 +1,20 @@
-
+<style>
+    .profile-img{
+        background-image: url(<%= @client.photo%>);
+        background-size: cover;
+        width: 20vh;
+        height: 20vh;
+        margin: auto;
+        background-position: 50% 50%;
+        border-radius: 20vh;
+    }
+ </style>
 <div class="container">
     <h2>My Account</h2>
         <% if !!@client.photo %>
-            <img src="<%= @client.photo%>" alt="My Profile" class="profile-pic">
+            <div class="profile-img">
+                &nbsp;
+            </div>
         <% end %>
         <form action='/client/me/image' enctype="multipart/form-data" method='POST'>
             <input name="file" type="file" />
