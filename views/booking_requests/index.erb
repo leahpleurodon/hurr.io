@@ -54,12 +54,14 @@ view:
                         <button>Approve</button>
                     </form>
                 </td>
+            <% unless req.request_status == 'denied' %>
                 <td>
                     <form action="/booking_request/<%= req.id %>/deny" method="post" class="record-edit">
                         <input type="hidden" name="_method" value="put">
                         <button>Deny</button>
                     </form>
                 </td>
+            <% end %>
                 <td>
                     <form action="/booking_request/<%= req.id %>/delete" method="post" class="record-edit">
                         <input type="hidden" name="_method" value="put">
